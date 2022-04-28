@@ -86,12 +86,19 @@ export class ShadeComponent implements OnChanges {
   gradient!: Record<string, string>;
   pointerLeft!: number;
   pointerTop?: number;
+  bnw?: boolean;
 
   ngOnChanges() {
+    this.bnw = this.hsl.s === 0;
+
+    const colorGradient = `linear-gradient(to right,
+      hsl(${this.hsl.h}, 90%, 55%),
+      #000)`;
+    const whiteToBlackGradient = `linear-gradient(to right, #fff, #000)`;
+    const bgGradient = this.bnw ? whiteToBlackGradient : colorGradient;
+
     this.gradient = {
-      background: `linear-gradient(to right,
-          hsl(${this.hsl.h}, 90%, 55%),
-          #000)`,
+      background: bgGradient
     };
     const hsv = new TinyColor(this.hsl).toHsv();
     this.pointerLeft = 100 - (hsv.v * 100);
@@ -112,7 +119,7 @@ export class ShadeComponent implements OnChanges {
     if (hsv.v !== v) {
       data = {
         h: this.hsl.h,
-        s: 100,
+        s: this.bnw ? 0 : 1,
         v: 1 - v,
         l: this.hsl.l,
         a: this.hsl.a,
@@ -133,4 +140,4 @@ export class ShadeComponent implements OnChanges {
   exports: [ShadeComponent],
   imports: [CommonModule, CoordinatesModule],
 })
-export class ShadeModule {}
+export class ShadeModule { }

@@ -46,6 +46,7 @@ export class ColorWrap implements OnInit, OnChanges, OnDestroy {
   currentColor!: string;
   changes!: Subscription;
   disableAlpha?: boolean;
+  bnw!: boolean;
 
   ngOnInit() {
     this.changes = this.onChange
