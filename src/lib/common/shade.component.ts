@@ -82,15 +82,13 @@ export class ShadeComponent implements OnChanges {
   @Input() pointer!: Record<string, string>;
   @Input() shadow!: string;
   @Input() radius!: string;
+  @Input() bnw!: boolean;
   @Output() onChange = new EventEmitter<any>();
   gradient!: Record<string, string>;
   pointerLeft!: number;
   pointerTop?: number;
-  bnw?: boolean;
 
   ngOnChanges() {
-    this.bnw = this.hsl.s === 0;
-
     const colorGradient = `linear-gradient(to right,
       hsl(${this.hsl.h}, 90%, 55%),
       #000)`;
